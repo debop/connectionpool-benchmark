@@ -14,7 +14,7 @@ object DataSources {
   lazy val processCount = sys.runtime.availableProcessors()
   val MAX_POOL_SIZE = processCount * 16: Int
   val MIN_POOL_SIZE = 10: Int
-  val MIN_IDLE_SIZE = 2
+  val MIN_IDLE_SIZE = 4
 
   lazy val hikariFactory = new HikariCPDataSourceFactory()
   lazy val bonecpFactory = new BoneCPDataSourceFactory()

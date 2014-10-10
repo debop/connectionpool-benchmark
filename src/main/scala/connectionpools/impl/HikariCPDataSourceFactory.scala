@@ -55,7 +55,9 @@ class HikariCPDataSourceFactory extends DataSourceFactorySupport {
     }
 
     // MySQL 인 경우 성능을 위해 아래 설정을 사용합니다.
-    if (JdbcDrivers.DATASOURCE_CLASS_MYSQL.equals(dataSourceClassName)) {
+    val isMySQL = JdbcDrivers.DATASOURCE_CLASS_MYSQL.equals(dataSourceClassName) ||
+                  JdbcDrivers.DRIVER_CLASS_MYSQL.equals(driverClass)
+    if (isMySQL) {
       config.addDataSourceProperty("cachePrepStmts", "true")
       config.addDataSourceProperty("prepStmtCacheSize", "500")
       config.addDataSourceProperty("prepStmtCacheSqlLimit", "4096")
