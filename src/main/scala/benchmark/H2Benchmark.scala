@@ -61,8 +61,7 @@ object H2Benchmark extends PerformanceTest.Quickbenchmark with Matchers {
   }
 
   private def cycleConnection(ds: DataSource, size: Int): Unit = {
-
-    (0 until size) foreach { i =>
+    (0 until size).par.foreach { i =>
       val connection = ds.getConnection
       connection should not be null
       connection.close()
@@ -70,14 +69,12 @@ object H2Benchmark extends PerformanceTest.Quickbenchmark with Matchers {
   }
 
   private def cycleStatement(ds: DataSource, size: Int): Unit = {
-    val connection = ds.getConnection
-
-    (0 until size) foreach { i =>
+    (0 until size).par.foreach { i =>
+      val connection = ds.getConnection
       val statement = connection.createStatement()
       statement.execute("select 1")
       statement.close()
+      connection.close()
     }
-
-    connection.close()
   }
 }
