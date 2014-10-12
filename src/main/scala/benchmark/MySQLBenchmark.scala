@@ -75,7 +75,6 @@ object MySQLBenchmark extends PerformanceTest.Quickbenchmark with Matchers {
   }
 
   private def cycleConnection(ds: DataSource, size: Int): Unit = {
-
     (0 until size).par.foreach { i =>
       val connection = ds.getConnection
       connection should not be null
@@ -86,8 +85,8 @@ object MySQLBenchmark extends PerformanceTest.Quickbenchmark with Matchers {
   private def cycleStatement(ds: DataSource, size: Int): Unit = {
     (0 until size).par.foreach { i =>
       val connection = ds.getConnection
-      val statement = connection.createStatement()
-      statement.execute("select 1")
+      val statement = connection.prepareStatement("select 1")
+      statement.execute()
       statement.close()
       connection.close()
     }
