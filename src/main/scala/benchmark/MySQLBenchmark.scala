@@ -1,5 +1,6 @@
 package benchmark
 
+import java.sql.Connection
 import javax.sql.DataSource
 
 import connectionpools.{DataSources, JdbcDrivers}
@@ -12,7 +13,7 @@ import org.scalatest.Matchers
  */
 object MySQLBenchmark extends PerformanceTest.Quickbenchmark with Matchers {
 
-  val sizes = Gen.range("size")(5000, 20000, 5000)
+  val sizes = Gen.range("size")(500, 2000, 500)
 
   val DriverClass = JdbcDrivers.DRIVER_CLASS_MYSQL
   val JdbcUrl = "jdbc:mysql://localhost/test"
@@ -76,10 +77,15 @@ object MySQLBenchmark extends PerformanceTest.Quickbenchmark with Matchers {
 
   private def cycleConnection(ds: DataSource, size: Int): Unit = {
     (0 until size).par.foreach { i =>
-      val connection = ds.getConnection
+      val connection = getConnection(ds)
       connection should not be null
-      connection.close()
     }
+  }
+
+  private def getConnection(ds: DataSource): Connection = {
+    val connection = ds.getConnection
+    connection.close()
+    connection
   }
 
   private def cycleStatement(ds: DataSource, size: Int): Unit = {

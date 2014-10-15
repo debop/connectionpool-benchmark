@@ -81,7 +81,7 @@
         <dependency>
             <groupId>com.storm-enroute</groupId>
             <artifactId>scalameter_2.11</artifactId>
-            <version>0.7</version>
+            <version>0.6</version>
         </dependency>
     </dependencies>
 
