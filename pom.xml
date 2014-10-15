@@ -112,10 +112,10 @@
                     <args>
                         <!-- NOTE: akka 사용 시에는 적용하면 안됩니다!!! -->
                         <!--<arg>-optimise</arg>-->
-                        <arg>-Yconst-opt</arg>
-                        <arg>-Ydead-code</arg>
-                        <arg>-Yclosure-elim</arg>
-                        <arg>-Yinline</arg>
+                        <!--<arg>-Yconst-opt</arg>-->
+                        <!--<arg>-Ydead-code</arg>-->
+                        <!--<arg>-Yclosure-elim</arg>-->
+                        <!--<arg>-Yinline</arg>-->
                         <arg>-target:jvm-${jdk.version}</arg>
                         <arg>-unchecked</arg>
                         <arg>-deprecation</arg>
