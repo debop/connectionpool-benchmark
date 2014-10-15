@@ -12,9 +12,9 @@ object DataSources {
   private lazy val log = LoggerFactory.getLogger(getClass)
 
   lazy val processCount = sys.runtime.availableProcessors()
-  val MAX_POOL_SIZE = processCount * 4: Int
-  val MIN_POOL_SIZE = 10: Int
-  val MIN_IDLE_SIZE = 0
+  val MAX_POOL_SIZE = processCount * 8
+  val MIN_POOL_SIZE = processCount
+  val MIN_IDLE_SIZE = processCount
 
   lazy val hikariFactory = new HikariCPDataSourceFactory()
   lazy val bonecpFactory = new BoneCPDataSourceFactory()

@@ -11,27 +11,27 @@ import org.scalatest.Matchers
  * MySQLBenchmark
  * @author Sunghyouk Bae sunghyouk.bae@gmail.com
  */
-object MySQLBenchmark extends PerformanceTest.Quickbenchmark with Matchers {
+object MySQLBenchmark extends PerformanceTest.Microbenchmark with Matchers {
 
-  val sizes = Gen.range("size")(500, 2000, 500)
+  val sizes = Gen.range("size")(10000, 40000, 10000)
 
   val DriverClass = JdbcDrivers.DRIVER_CLASS_MYSQL
   val JdbcUrl = "jdbc:mysql://localhost/test"
   val Username = "root"
   val Password = "root"
 
-  val hikariDs = DataSources.hikariFactory.createDataSource(driverClass = DriverClass,
-                                                             url = JdbcUrl,
-                                                             username = Username,
-                                                             passwd = Password)
-  val boneDs = DataSources.bonecpFactory.createDataSource(driverClass = DriverClass,
-                                                           url = JdbcUrl,
-                                                           username = Username,
-                                                           passwd = Password)
-  val tomcatDs = DataSources.tomcatFactory.createDataSource(driverClass = DriverClass,
-                                                             url = JdbcUrl,
-                                                             username = Username,
-                                                             passwd = Password)
+  lazy val hikariDs = DataSources.hikariFactory.createDataSource(driverClass = DriverClass,
+                                                                  url = JdbcUrl,
+                                                                  username = Username,
+                                                                  passwd = Password)
+  lazy val boneDs = DataSources.bonecpFactory.createDataSource(driverClass = DriverClass,
+                                                                url = JdbcUrl,
+                                                                username = Username,
+                                                                passwd = Password)
+  lazy val tomcatDs = DataSources.tomcatFactory.createDataSource(driverClass = DriverClass,
+                                                                  url = JdbcUrl,
+                                                                  username = Username,
+                                                                  passwd = Password)
 
   performance of "cycle connection" in {
 

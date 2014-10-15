@@ -10,13 +10,13 @@ import org.scalatest.Matchers
  * H2Benchmark
  * @author Sunghyouk Bae sunghyouk.bae@gmail.com
  */
-object H2Benchmark extends PerformanceTest.Quickbenchmark with Matchers {
+object H2Benchmark extends PerformanceTest.Microbenchmark with Matchers {
 
-  val sizes = Gen.range("size")(5000, 20000, 5000)
+  val sizes = Gen.range("size")(10000, 40000, 10000)
 
-  val hikariDs = DataSources.hikariFactory.createDataSource()
-  val boneDs = DataSources.bonecpFactory.createDataSource()
-  val tomcatDs = DataSources.tomcatFactory.createDataSource()
+  lazy val hikariDs = DataSources.hikariFactory.createDataSource()
+  lazy val boneDs = DataSources.bonecpFactory.createDataSource()
+  lazy val tomcatDs = DataSources.tomcatFactory.createDataSource()
 
   performance of "cycle connection" in {
 
